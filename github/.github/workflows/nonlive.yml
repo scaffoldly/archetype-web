@@ -42,7 +42,7 @@ jobs:
           version-file: package.json
           repo-token: {{ '${{ secrets.GITHUB_TOKEN }}' }}
       - run: |
-          aws s3 sync . "s3://$AWS_BUCKET_NAME" --exclude index.html
-          aws s3 cp index.html "s3://$AWS_BUCKET_NAME/index.html" --metadata-directive REPLACE --cache-control no-cache,no-store
+          aws s3 sync . "s3://$AWS_BUCKET_NAME/$NODE_ENV" --exclude index.html
+          aws s3 cp index.html "s3://$AWS_BUCKET_NAME/$NODE_ENV/index.html" --metadata-directive REPLACE --cache-control no-cache,no-store
         working-directory: dist
       - run: aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID --paths "/*"
