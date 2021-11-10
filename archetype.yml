@@ -1,0 +1,53 @@
+---
+script:
+  - rules:
+      - destination:
+          overwrite: true
+
+  - set:
+      repository-name:
+        prompt: 'Repository Name?'
+
+  - if:
+      conditions:
+        - switch-enabled: angular
+      then:
+        - set:
+            service-name:
+              value: "{{ repository-name | trim_end_matches(pat='-web-angular') }}"
+        - exec:
+            command: curl
+            args:
+              - '-LJO'
+              - 'https://github.com/ngx-rocket/starter-kit/tarball/v10.0.0'
+
+        - exec:
+            command: tar
+            args:
+              - '-xvzf'
+              - 'ngx-rocket-starter-kit-v10.0.0-0-g0280530.tar.gz'
+              - '--strip-components=1'
+
+        - exec:
+            command: rm
+            args:
+              - 'ngx-rocket-starter-kit-v10.0.0-0-g0280530.tar.gz'
+
+  - if:
+      conditions:
+        - switch-enabled: cdn
+      then:
+        - rules:
+            - destination:
+                overwrite: false
+        - render:
+            directory:
+              source: 'immutable/cdn'
+
+  - if:
+      conditions:
+        - switch-enabled: github
+      then:
+        - render:
+            directory:
+              source: 'github'

@@ -1,0 +1,6 @@
+{
+  "service-name": "{{ repository-name }}",
+  "service-slug": "{{ service-name }}",
+  "application-name": "{{ service-name }}",
+  "organization-name": "{{ service-name }}"
+}
