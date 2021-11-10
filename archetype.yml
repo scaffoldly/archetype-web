@@ -51,3 +51,10 @@ script:
         - render:
             directory:
               source: 'github'
+
+  - exec:
+      command: 'npx'
+      args:
+        - 'prettier'
+        - '--write'
+        - 'src/**/*.{ts,js,html,scss}'
