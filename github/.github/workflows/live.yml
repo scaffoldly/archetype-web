@@ -38,7 +38,7 @@ jobs:
       - run: yarn build
       - uses: scaffoldly/bump-version-action@v1
         with:
-          action: prerelease
+          action: postrelease
           version-file: package.json
           repo-token: {{ '${{ secrets.GITHUB_TOKEN }}' }}
       - run: |
